@@ -24,7 +24,8 @@ const AddStudent=({show,onHide})=>{
         .then(response => {
             if (response.ok) {
               history.push("/students")
-              return alert("sucessfully added")
+              window.location.reload();
+              return alert("successfully Updated")
             } else {
               throw new Error('Network response was not ok');
             }

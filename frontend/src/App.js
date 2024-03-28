@@ -14,11 +14,12 @@ import Login from './components/Login';
 function App() {
   const [searchtext, setSearchtext] = useState('');
   const [searchresult, setSearchresults] = useState([]);
+  const [searchedtext,setsearchedtext]=useState('')
   const token = localStorage.getItem('token');
-  console.log("serach,students",token)
   const history=useHistory()
   useEffect(() => {
-    if (token){fetch(`http://127.0.0.1:8000/students/?search=${searchtext}`,
+    if (token){
+      fetch(`http://127.0.0.1:8000/students/?search=${searchedtext}`,
     {headers:{
       "Authorization":`Token ${token}`
     }})
@@ -35,7 +36,7 @@ function App() {
         setSearchresults(data.results);
       });}
     
-  }, [searchtext,token]);
+  }, [searchedtext,token]);
 
   const [students, setStudents] = useState([]);
   const [nextpage, setNextPage] = useState(null);
@@ -71,7 +72,11 @@ function App() {
 
   return (
     <div className="container">
-      <Navbar setSearchtext={setSearchtext} />
+      <Navbar setSearchtext={setSearchtext} 
+       setsearchedtext={setsearchedtext}
+      searchtext={searchtext}
+      
+      />
       <Switch>
         <Route path="/home" exact component={Home} />
         <Route path="/students" >

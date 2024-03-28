@@ -1,11 +1,9 @@
 import { useHistory } from "react-router-dom"
 import { Link } from "react-router-dom";
-const Navbar=({setSearchtext})=>{
+const Navbar=({setSearchtext,setsearchedtext,searchtext})=>{
   const history=useHistory()
   // retriving token
-  const token = localStorage.getItem('token');
-  console.log("first",token)
-  
+  const token = localStorage.getItem('token');  
   const handleLogout=(e)=>{
     e.preventDefault()
       fetch("http://127.0.0.1:8000/logout/",{
@@ -37,11 +35,16 @@ const Navbar=({setSearchtext})=>{
       })
     }
 
+    const searchedevent=(e)=>{
+      e.preventDefault()
+      history.push(`/search`)
+      setsearchedtext(searchtext)
+      setSearchtext('')
+
+    }
     const searchevent=(e)=>{
       e.preventDefault()
-      const val=e.target.value
-      history.push(`/search`)
-      setSearchtext(val)
+      setSearchtext(e.target.value)
 
     }
     return (
@@ -78,8 +81,8 @@ const Navbar=({setSearchtext})=>{
                 </div>
               </div>
               <form className="d-flex">
-               <input className="form-control me-2" onChange={searchevent} type="search" placeholder="Search" aria-label="Search"/>
-                <button className="btn btn-outline-success" type="submit">Search</button>
+               <input className="form-control me-2" onChange={searchevent}  value={searchtext} type="search" placeholder="Search" aria-label="Search"/>
+                <button className="btn btn-outline-success" onClick={searchedevent} type="submit">Search</button>
               </form>
             </nav>
         </div>

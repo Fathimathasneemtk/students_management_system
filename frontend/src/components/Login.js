@@ -25,7 +25,7 @@ const Login=()=>{
             .then(data=>{
                 // Store token in local storage or state for further use
                 localStorage.setItem("token", data.token);
-                alert("Logined Sucessfully")
+                alert("Logined successfully")
                 history.push("/students")
                 window.location.reload();
                 console.log("login",data.token)})

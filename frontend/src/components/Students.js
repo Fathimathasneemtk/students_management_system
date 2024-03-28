@@ -5,7 +5,6 @@ const Students = ({ students, nextpage, prevpage, setnextpage, setprevpage, setS
     // console.log("stu",students)
     const token = localStorage.getItem('token');
 const history=useHistory()
-    console.log("students",token)
     const fetchPage = (pageUrl) => {
         fetch(pageUrl,{headers:{
             "Authorization":`Token ${token}`

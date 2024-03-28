@@ -1,7 +1,8 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-
+import { useHistory } from "react-router-dom"
 const Update=()=>{
+    const history=useHistory()
     const {id} =useParams()
     const [updatedata,setUpdatedata]=useState([])
     const [fname,setFname]=useState('')
@@ -45,7 +46,15 @@ const Update=()=>{
                 Course: course
             })
         })
-        .then(response => response.json())
+        .then(response => {
+            if (response.ok) {
+              history.push("/students")
+              window.location.reload();
+              return alert("successfully Updated")
+            } else {
+              throw new Error('Network response was not ok');
+            }
+          })
         .then(data => console.log('Update successful:', data))
         .catch(error => console.error('Error updating data:', error));
     }

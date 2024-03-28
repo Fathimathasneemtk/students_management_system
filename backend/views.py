@@ -20,7 +20,7 @@ class StudentsApi(APIView):
     @csrf_exempt
     def get(self, request, pk=0):
         pagination = PageNumberPagination()
-        pagination.page_size = 3
+        pagination.page_size = 5
         search = request.GET.get("search")
         students = StudentInfo.objects.all()
         if search:
@@ -82,7 +82,7 @@ class StudentDetailApi(APIView):
         student_obj = StudentInfo.objects.get(studentId=pk)
         student_obj.delete()
         pagination = PageNumberPagination()
-        pagination.page_size = 3
+        pagination.page_size = 5
         students = StudentInfo.objects.all()
         paginated_queryset = pagination.paginate_queryset(students, request)
         student_serializer = StudentSerializer(paginated_queryset, many=True)
